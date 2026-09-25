@@ -1,13 +1,13 @@
 {
   "name": "Tra cứu tỷ lệ % TTCT – Thông tư 22/2019/TT-BYT",
   "short_name": "Tra cứu TTCT",
-  "description": "Tra cứu tỷ lệ phần trăm tổn thương cơ thể và tính tổng theo phương pháp cộng lùi.",
+  "description": "Vô song pháp sư Trần Trung An – Tra cứu tỷ lệ phần trăm tổn thương cơ thể và tính tổng theo phương pháp cộng lùi.",
   "lang": "vi",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#f4f7f7",
-  "theme_color": "#0f5c63",
+  "background_color": "#f6f3ec",
+  "theme_color": "#0b3b40",
   "icons": [
     { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
     { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },

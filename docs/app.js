@@ -323,7 +323,14 @@ function renderSearch() {
 
 function renderHome(bangs, tips) {
   const box = $('#results');
+  const rated = D.items.filter(x => x.lo !== undefined).length.toLocaleString('vi-VN');
   const tipHTML = tips ? `
+    <section class="hero">
+      <p class="kicker">Vô song pháp sư · Trần Trung An</p>
+      <h2>Tra cứu tỷ lệ tổn thương cơ thể, <em>chuẩn theo Thông tư</em></h2>
+      <p>Toàn văn các Bảng tỷ lệ % TTCT của Thông tư 22/2019/TT-BYT đã đối chiếu với bản gốc, kèm bộ tính cộng lùi theo Điều 4.</p>
+      <div class="stats"><span><b>4</b>Bảng</span><span><b>${D.chuongs.length}</b>Chương</span><span><b>${rated}</b>mục có tỷ lệ</span></div>
+    </section>
     <div class="tips"><b>Cách tra cứu</b>
       <ul>
         <li>Gõ tên tổn thương, <b>có dấu hoặc không dấu</b> đều được: “gay xuong don”, “sẹo mặt”, “liệt”.</li>
@@ -590,6 +597,14 @@ function renderDoc() {
     </div>
     <details class="dieu"><summary>Căn cứ ban hành</summary><div class="content">${D.can_cu.map(p => `<p>${p}</p>`).join('')}</div></details>
     ${D.dieu.map(d => `<details class="dieu"${/Điều [34]$/.test(d.n) ? ' open' : ''}><summary>${esc(d.n)}. ${esc(d.title)}</summary><div class="content">${d.paras.map(p => `<p>${p}</p>`).join('')}</div></details>`).join('')}
+    <div class="about">
+      <img src="icon.svg" alt="" width="52" height="52">
+      <div>
+        <h3>Về ứng dụng</h3>
+        <p>Thiết kế và biên soạn: <b>Trần Trung An</b> – Vô song pháp sư.</p>
+        <p class="muted">Nội dung chuyển từ văn bản Thông tư 22/2019/TT-BYT, đã đối chiếu từng mục với bản PDF gốc. Thuật ngữ y khoa bị in sai chính tả trong bản gốc đã được sửa về cách viết chuẩn để tra cứu được. Công cụ chỉ hỗ trợ tra cứu, khi kết luận giám định cần đối chiếu văn bản gốc.</p>
+      </div>
+    </div>
     <div class="home-grid" style="margin-top:12px">${D.bangs.map(b => `<div class="bang-card"><h3>Bảng ${b.n}<small>${esc(b.short)}</small></h3><ul><li><button type="button" data-chap="${b.n}-${D.chuongs.some(c => c.b === b.n) ? D.chuongs.find(c => c.b === b.n).n : 0}">Mở Bảng ${b.n}</button></li></ul></div>`).join('')}</div>`;
 }
 
