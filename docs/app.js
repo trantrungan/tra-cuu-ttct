@@ -728,8 +728,29 @@ function refreshOrder() {
   document.querySelectorAll('#calcList .citem').forEach(c => { $('.tn', c).textContent = 'T' + ord.get(+c.dataset.k); });
 }
 
+/* ================= sáng / tối ================= */
+function applyTheme(mode, save) {
+  const d = document.documentElement;
+  d.dataset.theme = mode;
+  d.dataset.mode = mode;
+  if (save) { try { localStorage.setItem('ttct-theme', mode); } catch { /* bỏ qua */ } }
+  $('#themeBtn').setAttribute('aria-label', mode === 'dark' ? 'Chuyển sang giao diện sáng' : 'Chuyển sang giao diện tối');
+  document.querySelector('meta[name=theme-color]').content = mode === 'dark' ? '#071e21' : '#0b3b40';
+}
+const savedTheme = () => { try { return localStorage.getItem('ttct-theme'); } catch { return null; } };
+function initTheme() {
+  const d = document.documentElement;
+  applyTheme(d.dataset.mode || 'light', false);
+  if (!savedTheme()) delete d.dataset.theme;   // chưa chọn: theo hệ thống
+  $('#themeBtn').addEventListener('click', () => applyTheme(d.dataset.mode === 'dark' ? 'light' : 'dark', true));
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    if (!savedTheme()) { d.dataset.mode = e.matches ? 'dark' : 'light'; }
+  });
+}
+
 /* ================= khởi động ================= */
 (async function init() {
+  initTheme();
   saveCalc();
   bind();
   try {

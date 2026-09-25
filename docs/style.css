@@ -1,49 +1,75 @@
 :root {
-  --bg: #f6f3ec;              /* giấy ngà */
-  --surface: #fffdf8;
-  --surface-2: #f1ece0;
-  --text: #1c2624;
-  --muted: #62706c;
-  --line: #e2dccd;
+  --bg: #e9e4d8;              /* giấy ngà dịu, không trắng chói */
+  --surface: #f4f0e6;
+  --surface-2: #e5ddcc;
+  --text: #1e2826;
+  --muted: #5a6763;
+  --line: #d2c8b3;
   --accent: #0b5a5f;          /* xanh ngọc đậm */
   --accent-2: #12797e;
-  --accent-soft: #e0efec;
+  --accent-soft: #d5e5e0;
+  --on-accent: #ffffff;
   --ink: #0b3b40;
-  --gold: #b88a3b;            /* vàng kim */
-  --gold-soft: #f3e6c8;
+  --gold: #a87b2f;            /* vàng kim */
+  --gold-soft: #e8d8b2;
   --seal: #b3261e;            /* đỏ ấn triện */
-  --warn: #9a5b00;
-  --warn-soft: #fff3dc;
+  --warn: #8a5200;
+  --warn-soft: #f3e3c2;
   --danger: #b3261e;
-  --mark: #ffe39a;
-  --shadow: 0 1px 2px rgba(40, 32, 12, .05), 0 6px 20px rgba(40, 32, 12, .06);
+  --mark: #efd27e;
+  --shadow: 0 1px 2px rgba(40, 32, 12, .06), 0 6px 18px rgba(40, 32, 12, .07);
+  color-scheme: light;
   --radius: 12px;
   --font: "Be Vietnam Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --serif: "Playfair Display", Georgia, "Times New Roman", serif;
-  color-scheme: light;
 }
+/* tối theo hệ thống, trừ khi người dùng đã chọn sáng */
 @media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0a1719;
-    --surface: #102225;
-    --surface-2: #152c30;
-    --text: #e8ece6;
-    --muted: #9fb0ab;
-    --line: #22393b;
-    --accent: #6cc7c4;
-    --accent-2: #8fd8d4;
-    --accent-soft: #173a3b;
-    --ink: #071e21;
-    --gold: #d9b56a;
-    --gold-soft: #3a2f17;
-    --seal: #d2473d;
-    --warn: #f0b660;
-    --warn-soft: #3a2c12;
-    --danger: #ff8a80;
-    --mark: #6b5a12;
-    --shadow: none;
-    color-scheme: dark;
+  :root:not([data-theme="light"]) {
+  --bg: #0a1719;
+  --surface: #102225;
+  --surface-2: #152c30;
+  --text: #e3e8e2;
+  --muted: #9fb0ab;
+  --line: #22393b;
+  --accent: #6cc7c4;
+  --accent-2: #8fd8d4;
+  --accent-soft: #173a3b;
+  --on-accent: #0a1719;
+  --ink: #071e21;
+  --gold: #d9b56a;
+  --gold-soft: #3a2f17;
+  --seal: #d2473d;
+  --warn: #f0b660;
+  --warn-soft: #3a2c12;
+  --danger: #ff8a80;
+  --mark: #6b5a12;
+  --shadow: none;
+  color-scheme: dark;
   }
+}
+/* người dùng tự chọn tối */
+:root[data-theme="dark"] {
+  --bg: #0a1719;
+  --surface: #102225;
+  --surface-2: #152c30;
+  --text: #e3e8e2;
+  --muted: #9fb0ab;
+  --line: #22393b;
+  --accent: #6cc7c4;
+  --accent-2: #8fd8d4;
+  --accent-soft: #173a3b;
+  --on-accent: #0a1719;
+  --ink: #071e21;
+  --gold: #d9b56a;
+  --gold-soft: #3a2f17;
+  --seal: #d2473d;
+  --warn: #f0b660;
+  --warn-soft: #3a2c12;
+  --danger: #ff8a80;
+  --mark: #6b5a12;
+  --shadow: none;
+  color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -76,10 +102,21 @@ h1, h2, h3, h4 { line-height: 1.25; margin: 0; }
 .brand .seal { flex: none; border-radius: 10px; transform: rotate(-3deg); box-shadow: 0 2px 8px rgba(0,0,0,.25); }
 .brand .kicker {
   margin: 0; font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
-  color: #e9cf92;
+  color: #e9cf92; white-space: nowrap;
 }
 .brand h1 { font-family: var(--serif); font-size: 21px; font-weight: 700; letter-spacing: .01em; }
 .brand .sub { margin: 1px 0 0; font-size: 12.5px; opacity: .8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.top-right { display: flex; align-items: center; gap: 6px; }
+.theme-btn {
+  flex: none; width: 38px; height: 38px; border-radius: 10px; cursor: pointer;
+  border: 1px solid rgba(233, 207, 146, .45); background: rgba(255, 255, 255, .06); color: #e9cf92;
+  display: grid; place-items: center;
+}
+.theme-btn:hover { background: rgba(233, 207, 146, .16); }
+.theme-btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.theme-btn .sun { display: none; }
+:root[data-mode="dark"] .theme-btn .sun { display: block; }
+:root[data-mode="dark"] .theme-btn .moon { display: none; }
 .tabs { display: flex; gap: 4px; }
 .tabs a {
   position: relative;
@@ -97,7 +134,10 @@ h1, h2, h3, h4 { line-height: 1.25; margin: 0; }
 
 @media (max-width: 900px) and (min-width: 721px) {
   .brand .sub { display: none; }
-  .tabs a { padding: 8px 10px; }
+  .brand .seal { width: 36px; height: 36px; }
+  .brand h1 { font-size: 18px; }
+  .brand .kicker { font-size: 9.5px; letter-spacing: .1em; }
+  .tabs a { padding: 8px 9px; font-size: 14px; }
 }
 /* mobile: tabs to bottom bar */
 @media (max-width: 720px) {
@@ -183,8 +223,7 @@ mark { background: var(--mark); color: inherit; border-radius: 3px; padding: 0 1
   border: 1px solid var(--accent); color: var(--accent); background: var(--surface);
   border-radius: 8px; padding: 4px 10px; font-size: 13.5px; cursor: pointer; white-space: nowrap;
 }
-.add-btn:hover { background: var(--accent); color: #fff; }
-@media (prefers-color-scheme: dark) { .add-btn:hover { color: #0d1b1e; } }
+.add-btn:hover { background: var(--accent); color: var(--on-accent); }
 .more-btn { display: block; margin: 12px auto; }
 a.plain { color: inherit; text-decoration: none; }
 a.plain:hover { text-decoration: underline; text-decoration-color: var(--line); }
@@ -246,7 +285,7 @@ a.plain:hover { text-decoration: underline; text-decoration-color: var(--line); 
 .vgrid { border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
 .vgrid th, .vgrid td { border: 1px solid var(--line); padding: 4px 6px; text-align: center; white-space: nowrap; }
 .vgrid th { background: var(--surface-2); font-weight: 600; }
-.vgrid td.hit { background: var(--accent); color: #fff; font-weight: 700; }
+.vgrid td.hit { background: var(--accent); color: var(--on-accent); font-weight: 700; }
 .vgrid .axis { color: var(--muted); }
 
 /* ---------- calculator ---------- */
@@ -255,10 +294,9 @@ a.plain:hover { text-decoration: underline; text-decoration-color: var(--line); 
 .calc-head p { margin: 0; font-size: 14px; max-width: 560px; }
 .calc-actions { display: flex; gap: 8px; }
 .btn {
-  border: 1px solid var(--accent); background: var(--accent); color: #fff;
+  border: 1px solid var(--accent); background: var(--accent); color: var(--on-accent);
   border-radius: 10px; padding: 8px 14px; font-size: 14.5px; cursor: pointer; white-space: nowrap;
 }
-@media (prefers-color-scheme: dark) { .btn { color: #0d1b1e; } }
 .btn.ghost { background: none; color: var(--accent); }
 .btn:disabled { opacity: .5; cursor: default; }
 .order-toggle { margin: 6px 0 12px; }
