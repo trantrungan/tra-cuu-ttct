@@ -602,7 +602,7 @@ function renderDoc() {
       <div>
         <h3>Về ứng dụng</h3>
         <p>Thiết kế và biên soạn: <b>Trần Trung An</b> – Vô song pháp sư.</p>
-        <p class="muted">Nội dung chuyển từ văn bản Thông tư 22/2019/TT-BYT, đã đối chiếu từng mục với bản PDF gốc. Thuật ngữ y khoa bị in sai chính tả trong bản gốc đã được sửa về cách viết chuẩn để tra cứu được. Công cụ chỉ hỗ trợ tra cứu, khi kết luận giám định cần đối chiếu văn bản gốc.</p>
+        <p class="muted">Nội dung chuyển từ văn bản Thông tư 22/2019/TT-BYT, đã đối chiếu từng mục với bản PDF gốc. Công cụ chỉ hỗ trợ tra cứu, khi kết luận giám định cần đối chiếu văn bản gốc.</p>
       </div>
     </div>
     <div class="home-grid" style="margin-top:12px">${D.bangs.map(b => `<div class="bang-card"><h3>Bảng ${b.n}<small>${esc(b.short)}</small></h3><ul><li><button type="button" data-chap="${b.n}-${D.chuongs.some(c => c.b === b.n) ? D.chuongs.find(c => c.b === b.n).n : 0}">Mở Bảng ${b.n}</button></li></ul></div>`).join('')}</div>`;
