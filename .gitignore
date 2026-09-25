@@ -1,0 +1,7 @@
+# tệp nguồn lớn / tệp trung gian, không đưa lên GitHub
+TT22web.html
+TT22pdf.pdf
+work/
+.claude/
+.DS_Store
+__pycache__/

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tra cứu tỷ lệ % TTCT</title>
+<meta name="description" content="Tra cứu tỷ lệ phần trăm tổn thương cơ thể theo Thông tư 22/2019/TT-BYT và tính tổng tỷ lệ theo phương pháp cộng lùi.">
+<meta name="theme-color" content="#0f5c63" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d1b1e" media="(prefers-color-scheme: dark)">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="style.css?v=1e1522c2">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <img src="icon.svg" alt="" width="32" height="32">
+    <div>
+      <h1>Tra cứu tỷ lệ % TTCT</h1>
+      <p>Thông tư 22/2019/TT-BYT · giám định pháp y, pháp y tâm thần</p>
+    </div>
+  </div>
+  <nav class="tabs" aria-label="Chức năng">
+    <a href="#/" data-tab="search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+      <span>Tra cứu</span>
+    </a>
+    <a href="#/cong-lui" data-tab="calc">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h2M14 12h2M8 16h2M14 16h2"/></svg>
+      <span>Cộng lùi</span><b class="badge" id="calcBadge" hidden>0</b>
+    </a>
+    <a href="#/van-ban" data-tab="doc">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/></svg>
+      <span>Văn bản</span>
+    </a>
+  </nav>
+</header>
+
+<main id="app">
+  <section id="view-search" class="view" hidden>
+    <div class="searchbar">
+      <label class="search-input">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+        <input id="q" type="search" placeholder="Nhập tổn thương, ví dụ: gãy xương đòn can xấu" autocomplete="off" spellcheck="false" aria-label="Từ khóa tra cứu">
+        <button type="button" id="qClear" class="icon-btn" aria-label="Xóa từ khóa" hidden>×</button>
+      </label>
+      <div class="filters">
+        <select id="fBang" aria-label="Bảng">
+          <option value="">Tất cả Bảng</option>
+        </select>
+        <select id="fChuong" aria-label="Chương">
+          <option value="">Tất cả Chương</option>
+        </select>
+        <div class="rate-filter" role="group" aria-label="Khoảng tỷ lệ">
+          <input id="fMin" type="number" inputmode="numeric" min="0" max="100" placeholder="Từ %">
+          <span>–</span>
+          <input id="fMax" type="number" inputmode="numeric" min="0" max="100" placeholder="đến %">
+        </div>
+        <label class="check"><input id="fRated" type="checkbox"> Chỉ mục có tỷ lệ</label>
+        <button type="button" id="fReset" class="link-btn">Xóa lọc</button>
+      </div>
+    </div>
+    <div id="searchInfo" class="info-line" aria-live="polite"></div>
+    <div id="results"></div>
+  </section>
+
+  <section id="view-calc" class="view" hidden>
+    <div class="calc-head">
+      <div>
+        <h2>Tính tổng tỷ lệ % TTCT</h2>
+        <p class="muted">Phương pháp cộng theo Điều 4: T1 + T2 + … + Tn, với Tn = (100 − T1 − … − Tn−1) × tỷ lệ thứ n / 100.</p>
+      </div>
+      <div class="calc-actions">
+        <button type="button" id="addCustom" class="btn">+ Tự nhập tỷ lệ</button>
+        <button type="button" id="clearCalc" class="btn ghost">Xóa hết</button>
+      </div>
+    </div>
+    <label class="check order-toggle"><input id="sortDesc" type="checkbox" checked> Tự sắp xếp từ cao xuống thấp (T1 là tỷ lệ lớn nhất)</label>
+    <div id="calcList"></div>
+    <div id="calcResult"></div>
+  </section>
+
+  <section id="view-doc" class="view" hidden>
+    <div id="docBody"></div>
+  </section>
+</main>
+
+<footer class="foot">
+  <p>Công cụ hỗ trợ tra cứu, không thay thế văn bản gốc. Khi kết luận giám định, đối chiếu Thông tư 22/2019/TT-BYT (hiệu lực từ 01/11/2019).</p>
+</footer>
+
+<div id="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="app.js?v=1e1522c2" defer></script>
+</body>
+</html>
