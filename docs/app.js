@@ -329,15 +329,15 @@ function renderHome(bangs, tips) {
       <div class="hero-sweep"></div>
       <div class="hero-sweep s2"></div>
       <div class="hero-sweep s3"></div>
-      <p class="typewriter">&gt; Thông tư 22/2019 sẵn sàng</p>
-      <h2>Tra cứu tỷ lệ <span class="neon">% TTCT</span></h2>
+      <p class="typewriter">&gt; Ứng dụng đã sẵn sàng...</p>
+      <h2>Tra tính <span class="neon">% TTCT</span></h2>
       <p class="hero-desc">Toàn văn các Bảng tỷ lệ % tổn thương cơ thể của Thông tư 22/2019/TT-BYT đã đối chiếu với bản gốc, kèm bộ tính cộng lùi theo Điều 4.</p>
       <div class="stats">
         <div class="stat"><b>4</b><span>Bảng</span></div>
         <div class="stat"><b>${D.chuongs.length}</b><span>Chương</span></div>
         <div class="stat"><b>${rated}</b><span>mục có tỷ lệ</span></div>
       </div>
-      <div class="hero-tags"><span>Vô song pháp sư Trần Trung An</span><span>TT 22/2019/TT-BYT</span><span>Offline</span><span>Tổng tỷ lệ</span></div>
+      <div class="hero-tags"><span>Vô song pháp sư Trần Trung An</span><span>TT 22/2019/TT-BYT</span><span>Tra cứu</span><span>Tính tỷ lệ</span></div>
     </section>
     <div class="tips"><b>Cách tra cứu</b>
       <ul>
