@@ -438,6 +438,7 @@ function saveCalc() {
   b.hidden = !n;
 }
 function addToCalc(entry) {
+  track('them-cong-lui', 'Thêm mục vào Cộng lùi');
   C.items.push({ k: ++uid, f: '1', ...entry });
   saveCalc();
   toast(`Đã thêm vào Cộng lùi (${C.items.length} mục)`);
@@ -615,8 +616,18 @@ function show(view) {
   for (const v of ['search', 'calc', 'doc']) $('#view-' + v).hidden = v !== view;
   document.querySelectorAll('.tabs a').forEach(a => a.classList.toggle('active', a.dataset.tab === view));
 }
+// ghi nhận lượt dùng từng chức năng (chỉ tên chức năng, không có nội dung tra cứu)
+const counted = new Set();
+function track(name, title) {
+  if (counted.has(name)) return;               // mỗi chức năng đếm 1 lần mỗi lượt mở trang
+  counted.add(name);
+  try { window.goatcounter?.count?.({ path: name, title, event: true }); } catch { /* bỏ qua */ }
+}
 function route() {
   const r = readHash();
+  if (r.view === 'calc') track('cong-lui', 'Mở Cộng lùi');
+  else if (r.view === 'doc') track('van-ban', 'Mở Văn bản');
+  else if (r.b && (r.c || r.b === '3' || r.b === '4') && !r.q) track(`chuong-${r.b}-${r.c || 0}`, `Xem Bảng ${r.b}${r.c ? ' Chương ' + r.c : ''}`);
   if (r.view !== currentView) window.scrollTo({ top: 0 });
   show(r.view);
   if (r.view === 'calc') { renderCalc(); return; }
@@ -633,6 +644,7 @@ function bind() {
     clearTimeout(t);
     t = setTimeout(() => {
       S.q = e.target.value.trim(); S.limit = 60;
+      if (S.q) track('tra-cuu', 'Có tra cứu từ khóa');
       $('#qClear').hidden = !S.q;
       writeHash(); renderSearch();
     }, 120);
