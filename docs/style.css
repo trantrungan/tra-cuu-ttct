@@ -153,7 +153,12 @@ h1, h2, h3, h4 { line-height: 1.25; margin: 0; letter-spacing: -.01em; }
   -webkit-mask-composite: xor;
   mask-composite: exclude;
 }
-.result:hover::after, .bang-card:hover::after, .citem:hover::after,
+/* 4 thẻ Bảng ở trang chủ: vòng sáng chạy liên tục (điện thoại không có rê chuột) */
+.bang-card::after { opacity: 1; animation: ring-run 4s linear infinite; }
+.home-grid .bang-card:nth-child(2)::after { animation-delay: -1s; }
+.home-grid .bang-card:nth-child(3)::after { animation-delay: -2s; }
+.home-grid .bang-card:nth-child(4)::after { animation-delay: -3s; }
+.result:hover::after, .citem:hover::after,
 details.dieu:hover::after, .grid-widget:hover::after, .search-input:focus-within::after {
   opacity: 1; animation: ring-run 2.5s linear infinite;
 }
@@ -329,7 +334,12 @@ main { max-width: 980px; margin: 0 auto; padding: 16px; }
   padding: 12px 12px 12px 14px; margin-bottom: 8px;
   transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
 }
-.result:hover, .bang-card:hover, .citem:hover {
+.bang-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  border-color: color-mix(in srgb, var(--acc, var(--accent)) 55%, transparent);
+  box-shadow: 0 0 24px color-mix(in srgb, var(--acc, var(--accent)) 30%, transparent), var(--lift);
+}
+.result:hover, .citem:hover {
   transform: translateY(-3px);
   border-color: color-mix(in srgb, var(--acc, var(--accent)) 55%, transparent);
   box-shadow: 0 0 18px color-mix(in srgb, var(--acc, var(--accent)) 24%, transparent), var(--lift);
@@ -369,7 +379,7 @@ a.plain:hover { text-decoration: underline; text-decoration-color: var(--line); 
 .kid { display: flex; align-items: center; gap: 8px; padding: 4px 0 4px calc(10px + var(--d, 0) * 14px); font-size: 14.5px; }
 .kid .itext { flex: 1; min-width: 0; font-size: 14.5px; }
 .kid .rate { font-size: 13.5px; padding: 1px 7px; }
-.kid .add-btn { padding: 2px 9px; font-size: 15px; line-height: 1.2; }
+.kid .add-btn { padding: 2px 8px; font-size: 12.5px; line-height: 1.4; }
 .kid-more { display: inline-block; margin: 4px 0 0 10px; font-size: 13.5px; }
 
 /* ---------- trang chủ ---------- */

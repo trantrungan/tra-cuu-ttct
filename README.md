@@ -9,7 +9,7 @@ Dùng được trên máy tính và điện thoại. Có thể "Thêm vào màn 
 - **Tra cứu**: gõ có dấu hoặc không dấu; kết hợp lọc theo Bảng, Chương, khoảng tỷ lệ %; mục cha hiện luôn các mục con kèm tỷ lệ.
 - **Duyệt theo Chương**: xem toàn bộ mục của một Chương kèm phần "Nguyên tắc" và ghi chú.
 - **Bảng thị lực**: chọn thị lực hai mắt để ra tỷ lệ chung (Bảng 1 Chương 10, Bảng 2 Chương 11).
-- **Cộng lùi**: thêm tổn thương từ kết quả tra cứu, chọn tỷ lệ trong khung, nhân hệ số (sẹo mặt ×3, sẹo cổ ×2, 30% theo Điều 3 khoản 7…), tự tính T1…Tn và làm tròn theo Điều 3 khoản 4; sao chép hoặc in cách tính.
+- **Tổng tỷ lệ** (nút **Tính %** ở mỗi mục): thêm tổn thương từ kết quả tra cứu, chọn tỷ lệ trong khung, nhân hệ số (sẹo mặt ×3, sẹo cổ ×2, 30% theo Điều 3 khoản 7…), tự tính T1…Tn và làm tròn theo Điều 3 khoản 4; sao chép hoặc in cách tính.
 - **Văn bản**: nội dung Điều 1–7 và căn cứ ban hành.
 
 ## Cấu trúc thư mục

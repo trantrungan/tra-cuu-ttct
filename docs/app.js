@@ -261,7 +261,7 @@ function crumbHTML(x, withChapter = true) {
 }
 function rateCol(x) {
   if (x.lo === undefined) return kids.has(x.id) ? '' : `<div class="rate-col"><span class="rate none">${x.sec ? '' : 'không có tỷ lệ riêng'}</span></div>`;
-  return `<div class="rate-col"><span class="rate">${esc(rateText(x))}</span><button type="button" class="add-btn" data-add="${x.id}">+ Cộng lùi</button></div>`;
+  return `<div class="rate-col"><span class="rate">${esc(rateText(x))}</span><button type="button" class="add-btn" data-add="${x.id}">Tính %</button></div>`;
 }
 function itemText(x, qw) {
   const code = x.code ? `<span class="code">${esc(x.code)}</span>` : '';
@@ -282,7 +282,7 @@ function kidsHTML(x) {
   return `<div class="kids">${shown.map(([k, d]) => `
     <div class="kid" style="--d:${d}">
       <div class="itext">${itemText(k)}</div>
-      ${k.lo !== undefined ? `<span class="rate">${esc(rateText(k))}</span><button type="button" class="add-btn" data-add="${k.id}" aria-label="Thêm vào cộng lùi">+</button>` : ''}
+      ${k.lo !== undefined ? `<span class="rate">${esc(rateText(k))}</span><button type="button" class="add-btn" data-add="${k.id}" aria-label="Thêm vào Tổng tỷ lệ">Tính %</button>` : ''}
     </div>`).join('')}
     ${list.length > shown.length ? `<a href="#/muc/${x.id}" class="kid-more">Xem đủ ${list.length} mục trong Chương →</a>` : ''}
   </div>`;
@@ -337,14 +337,14 @@ function renderHome(bangs, tips) {
         <div class="stat"><b>${D.chuongs.length}</b><span>Chương</span></div>
         <div class="stat"><b>${rated}</b><span>mục có tỷ lệ</span></div>
       </div>
-      <div class="hero-tags"><span>Vô song pháp sư Trần Trung An</span><span>TT 22/2019/TT-BYT</span><span>Offline</span><span>Cộng lùi</span></div>
+      <div class="hero-tags"><span>Vô song pháp sư Trần Trung An</span><span>TT 22/2019/TT-BYT</span><span>Offline</span><span>Tổng tỷ lệ</span></div>
     </section>
     <div class="tips"><b>Cách tra cứu</b>
       <ul>
         <li>Gõ tên tổn thương, <b>có dấu hoặc không dấu</b> đều được: “gay xuong don”, “sẹo mặt”, “liệt”.</li>
         <li>Kết hợp với bộ lọc Bảng, Chương, khoảng tỷ lệ (ví dụ 21 đến 30%).</li>
         <li>Chọn một Chương (hoặc bấm vào dòng chữ nhỏ phía trên mỗi kết quả) để xem toàn bộ mục kèm “Nguyên tắc” của Chương.</li>
-        <li>Bấm <b>+ Cộng lùi</b> để đưa tỷ lệ vào bảng tính tổng theo Điều 4.</li>
+        <li>Bấm <b>Tính %</b> để đưa tỷ lệ vào mục <b>Tổng tỷ lệ</b>, tính tổng theo phương pháp cộng lùi (Điều 4).</li>
       </ul>
     </div>` : '';
   box.innerHTML = tipHTML + `<div class="home-grid">` + bangs.map(b => {
@@ -363,7 +363,7 @@ function gridHTML(g) {
       <label>Mắt thứ nhất <select data-axis="r">${opts}</select></label>
       <label>Mắt thứ hai <select data-axis="c">${opts}</select></label>
       <span class="out"></span>
-      <button type="button" class="add-btn" data-grid-add="${g.id}">+ Cộng lùi</button>
+      <button type="button" class="add-btn" data-grid-add="${g.id}">Tính %</button>
     </div>
     <div class="table-scroll"><table class="vgrid">
       <thead><tr><th class="axis">Thị lực</th>${g.cols.map(c => `<th>${esc(c)}</th>`).join('')}</tr></thead>
@@ -446,10 +446,10 @@ function saveCalc() {
   b.hidden = !n;
 }
 function addToCalc(entry) {
-  track('them-cong-lui', 'Thêm mục vào Cộng lùi');
+  track('them-cong-lui', 'Thêm mục vào Tổng tỷ lệ');
   C.items.push({ k: ++uid, f: '1', ...entry });
   saveCalc();
-  toast(`Đã thêm vào Cộng lùi (${C.items.length} mục)`);
+  toast(`Đã thêm vào Tổng tỷ lệ (${C.items.length} mục)`);
   if (currentView === 'calc') renderCalc();
 }
 function addItem(id) {
@@ -522,7 +522,7 @@ function renderCalc() {
   const list = $('#calcList');
   const out = $('#calcResult');
   if (!C.items.length) {
-    list.innerHTML = `<div class="empty">Chưa có mục nào.<br>Vào <a href="#/">Tra cứu</a>, bấm <b>+ Cộng lùi</b> ở từng tổn thương, hoặc bấm “Tự nhập tỷ lệ”.</div>`;
+    list.innerHTML = `<div class="empty">Chưa có mục nào.<br>Vào <a href="#/">Tra cứu</a>, bấm <b>Tính %</b> ở từng tổn thương, hoặc bấm “Tự nhập tỷ lệ”.</div>`;
     out.innerHTML = '';
     return;
   }
@@ -632,7 +632,7 @@ function track(name, title) {
 }
 function route() {
   const r = readHash();
-  if (r.view === 'calc') track('cong-lui', 'Mở Cộng lùi');
+  if (r.view === 'calc') track('cong-lui', 'Mở Tổng tỷ lệ');
   else if (r.view === 'doc') track('van-ban', 'Mở Văn bản');
   else if (r.b && (r.c || r.b === '3' || r.b === '4') && !r.q) track(`chuong-${r.b}-${r.c || 0}`, `Xem Bảng ${r.b}${r.c ? ' Chương ' + r.c : ''}`);
   if (r.view !== currentView) window.scrollTo({ top: 0 });
@@ -704,7 +704,7 @@ function bind() {
     inputs[inputs.length - 1]?.focus();
   });
   $('#clearCalc').addEventListener('click', () => {
-    if (!C.items.length || !confirm('Xóa toàn bộ các mục trong bảng cộng lùi?')) return;
+    if (!C.items.length || !confirm('Xóa toàn bộ các mục trong Tổng tỷ lệ?')) return;
     C.items = []; saveCalc(); renderCalc();
   });
   const calcList = $('#calcList');
