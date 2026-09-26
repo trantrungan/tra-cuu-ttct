@@ -310,7 +310,7 @@ function renderSearch() {
     return;
   }
   box.innerHTML = res.slice(0, S.limit).map(x => `
-    <article class="result">
+    <article class="result" data-b="${x.b}">
       <div class="body">
         <div class="crumb">${crumbHTML(x)}</div>
         <div class="itext"><a href="#/muc/${x.id}" class="plain">${itemText(x, qw)}</a></div>
@@ -326,10 +326,18 @@ function renderHome(bangs, tips) {
   const rated = D.items.filter(x => x.lo !== undefined).length.toLocaleString('vi-VN');
   const tipHTML = tips ? `
     <section class="hero">
-      <p class="kicker">Vô song pháp sư · Trần Trung An</p>
-      <h2>Tra cứu tỷ lệ tổn thương cơ thể, <em>chuẩn theo Thông tư</em></h2>
-      <p>Toàn văn các Bảng tỷ lệ % TTCT của Thông tư 22/2019/TT-BYT đã đối chiếu với bản gốc, kèm bộ tính cộng lùi theo Điều 4.</p>
-      <div class="stats"><span><b>4</b>Bảng</span><span><b>${D.chuongs.length}</b>Chương</span><span><b>${rated}</b>mục có tỷ lệ</span></div>
+      <div class="hero-sweep"></div>
+      <div class="hero-sweep s2"></div>
+      <div class="hero-sweep s3"></div>
+      <p class="typewriter">&gt; Thông tư 22/2019 sẵn sàng</p>
+      <h2>Tra cứu tỷ lệ <span class="neon">% TTCT</span></h2>
+      <p class="hero-desc">Toàn văn các Bảng tỷ lệ % tổn thương cơ thể của Thông tư 22/2019/TT-BYT đã đối chiếu với bản gốc, kèm bộ tính cộng lùi theo Điều 4.</p>
+      <div class="stats">
+        <div class="stat"><b>4</b><span>Bảng</span></div>
+        <div class="stat"><b>${D.chuongs.length}</b><span>Chương</span></div>
+        <div class="stat"><b>${rated}</b><span>mục có tỷ lệ</span></div>
+      </div>
+      <div class="hero-tags"><span>Vô song pháp sư Trần Trung An</span><span>TT 22/2019/TT-BYT</span><span>Offline</span><span>Cộng lùi</span></div>
     </section>
     <div class="tips"><b>Cách tra cứu</b>
       <ul>
@@ -344,7 +352,7 @@ function renderHome(bangs, tips) {
     const list = chs.length
       ? chs.map(c => `<li><button type="button" data-chap="${c.b}-${c.n}"><b>${c.n}.</b>${esc(shortTitle(c.title))}</button></li>`).join('')
       : `<li><button type="button" data-chap="${b.n}-0">Xem toàn bộ Bảng ${b.n}</button></li>`;
-    return `<div class="bang-card"><h3>Bảng ${b.n}<small>${esc(b.short)}</small></h3><ul>${list}</ul></div>`;
+    return `<div class="bang-card" data-b="${b.n}"><h3>Bảng ${b.n}<small>${esc(b.short)}</small></h3><ul>${list}</ul></div>`;
   }).join('') + `</div>`;
 }
 
@@ -387,12 +395,12 @@ function renderChapter(key) {
     notes = `<details class="notes" open><summary>Nguyên tắc, ghi chú của ${ch.c ? 'Chương' : 'Bảng'}</summary>${html}</details>`;
   }
   box.innerHTML = `
-    <div class="chapter-head">
+    <div class="chapter-head" data-b="${ch.b}">
       <div class="crumb">Bảng ${ch.b} – ${esc(D.bangs[ch.b - 1].short)}</div>
       <h2>${ch.c ? `Chương ${ch.c}. ` : ''}${esc(ch.short)}</h2>
     </div>
     ${notes}
-    <div class="tree">${items.map(x => `
+    <div class="tree" data-b="${ch.b}">${items.map(x => `
       <div class="row${x.sec ? ' sec' : ''}${x.note ? ' note' : ''}" id="m${x.id}" style="--d:${x.depth}">
         <div class="itext">${itemText(x)}</div>
         ${x.lo !== undefined ? rateCol(x) : ''}
@@ -599,14 +607,13 @@ function renderDoc() {
     <details class="dieu"><summary>Căn cứ ban hành</summary><div class="content">${D.can_cu.map(p => `<p>${p}</p>`).join('')}</div></details>
     ${D.dieu.map(d => `<details class="dieu"${/Điều [34]$/.test(d.n) ? ' open' : ''}><summary>${esc(d.n)}. ${esc(d.title)}</summary><div class="content">${d.paras.map(p => `<p>${p}</p>`).join('')}</div></details>`).join('')}
     <div class="about">
-      <img src="icon.svg" alt="" width="52" height="52">
       <div>
         <h3>Về ứng dụng</h3>
         <p>Thiết kế và biên soạn: <b>Trần Trung An</b> – Vô song pháp sư.</p>
         <p class="muted">Nội dung chuyển từ văn bản Thông tư 22/2019/TT-BYT, đã đối chiếu từng mục với bản PDF gốc. Công cụ chỉ hỗ trợ tra cứu, khi kết luận giám định cần đối chiếu văn bản gốc.</p>
       </div>
     </div>
-    <div class="home-grid" style="margin-top:12px">${D.bangs.map(b => `<div class="bang-card"><h3>Bảng ${b.n}<small>${esc(b.short)}</small></h3><ul><li><button type="button" data-chap="${b.n}-${D.chuongs.some(c => c.b === b.n) ? D.chuongs.find(c => c.b === b.n).n : 0}">Mở Bảng ${b.n}</button></li></ul></div>`).join('')}</div>`;
+    <div class="home-grid" style="margin-top:12px">${D.bangs.map(b => `<div class="bang-card" data-b="${b.n}"><h3>Bảng ${b.n}<small>${esc(b.short)}</small></h3><ul><li><button type="button" data-chap="${b.n}-${D.chuongs.some(c => c.b === b.n) ? D.chuongs.find(c => c.b === b.n).n : 0}">Mở Bảng ${b.n}</button></li></ul></div>`).join('')}</div>`;
 }
 
 /* ================= điều hướng ================= */
@@ -747,17 +754,13 @@ function applyTheme(mode, save) {
   d.dataset.mode = mode;
   if (save) { try { localStorage.setItem('ttct-theme', mode); } catch { /* bỏ qua */ } }
   $('#themeBtn').setAttribute('aria-label', mode === 'dark' ? 'Chuyển sang giao diện sáng' : 'Chuyển sang giao diện tối');
-  document.querySelector('meta[name=theme-color]').content = mode === 'dark' ? '#071e21' : '#0b3b40';
+  document.querySelector('meta[name=theme-color]').content = mode === 'dark' ? '#171c26' : '#f2f1ec';
 }
 const savedTheme = () => { try { return localStorage.getItem('ttct-theme'); } catch { return null; } };
 function initTheme() {
   const d = document.documentElement;
-  applyTheme(d.dataset.mode || 'light', false);
-  if (!savedTheme()) delete d.dataset.theme;   // chưa chọn: theo hệ thống
+  applyTheme(savedTheme() === 'light' ? 'light' : 'dark', false);   // mặc định tối
   $('#themeBtn').addEventListener('click', () => applyTheme(d.dataset.mode === 'dark' ? 'light' : 'dark', true));
-  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-    if (!savedTheme()) { d.dataset.mode = e.matches ? 'dark' : 'light'; }
-  });
 }
 
 /* ================= khởi động ================= */

@@ -1,5 +1,5 @@
 // VERSION được scripts/build_data.py tự cập nhật theo nội dung; không cần sửa tay.
-const VERSION = 'ttct-cd202571';
+const VERSION = 'ttct-13695926';
 const FILES = ['./', 'index.html', 'style.css', 'app.js', 'data/tt22.json', 'manifest.webmanifest', 'icon.svg', 'icon-192.png', 'icon-512.png'];
 
 self.addEventListener('install', e => {
