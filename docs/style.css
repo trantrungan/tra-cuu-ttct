@@ -207,6 +207,9 @@ details.dieu:hover::after, .grid-widget:hover::after, .search-input:focus-within
   margin: 0; font: 500 11px/1.4 var(--mono); letter-spacing: .06em;
   color: var(--accent); white-space: nowrap;
 }
+.brand .kicker { display: flex; align-items: center; gap: 5px; text-transform: uppercase; letter-spacing: .14em; }
+.brand .kicker b { font-weight: 700; color: var(--text); }
+.emblem { flex: none; width: 1.25em; height: 1.25em; color: var(--accent); filter: drop-shadow(0 0 4px color-mix(in srgb, var(--accent) 45%, transparent)); }
 .brand h1 { font-size: 20px; font-weight: 700; }
 .brand .sub { margin: 1px 0 0; font-size: 12.5px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .top-right { display: flex; align-items: center; gap: 6px; }
@@ -573,10 +576,21 @@ details.dieu .content p { margin: 6px 0; }
 
 .foot { max-width: 980px; margin: 24px auto 28px; padding: 18px 16px 0; color: var(--muted); font-size: 13px; text-align: center; position: relative; }
 .foot::before { content: ""; position: absolute; left: 16px; right: 16px; top: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--line), transparent); }
-.signature { display: inline-block; margin-bottom: 8px; }
+/* dấu ấn ở chân trang: biểu tượng dòng Aventador + mã phiên bản */
+.signature { display: inline-flex; align-items: center; gap: 12px; margin-bottom: 10px; text-align: left; }
 .signature p { margin: 0; }
-.sig-name { font-size: 16px; font-weight: 700; color: var(--text); }
-.sig-title { font: 500 11.5px var(--mono); letter-spacing: .04em; color: var(--accent); }
+.sig-emblem {
+  flex: none; width: 38px; height: 38px; color: var(--accent);
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--accent) 50%, transparent));
+  animation: emblem-glow 4s ease-in-out infinite;
+}
+@keyframes emblem-glow {
+  0%, 100% { filter: drop-shadow(0 0 3px color-mix(in srgb, var(--accent) 35%, transparent)); }
+  50%      { filter: drop-shadow(0 0 10px color-mix(in srgb, var(--accent) 70%, transparent)); }
+}
+.sig-name { font: 700 15px var(--mono); letter-spacing: .18em; text-transform: uppercase; color: var(--text); }
+.sig-name span { color: var(--accent); }
+.sig-title { font: 500 11.5px var(--mono); letter-spacing: .03em; color: var(--muted); }
 
 /* ---------- bảng giới thiệu: quầng sáng trôi + làn sáng chạy ---------- */
 .hero {
@@ -624,12 +638,12 @@ details.dieu .content p { margin: 6px 0; }
   white-space: nowrap; overflow: hidden;
   border-right: 2px solid var(--accent);
   width: 0;
-  animation: typing 5s steps(27, end) infinite, caret .8s step-end infinite;
+  animation: typing 5s steps(25, end) infinite, caret .8s step-end infinite;
 }
 @keyframes typing {
   0%   { width: 0; }
-  45%  { width: 27ch; }
-  85%  { width: 27ch; }
+  45%  { width: 25ch; }
+  85%  { width: 25ch; }
   100% { width: 0; }
 }
 @keyframes caret {
@@ -653,6 +667,7 @@ details.dieu .content p { margin: 6px 0; }
 .hero .stat b { display: block; font: 700 24px/1.1 var(--mono); color: var(--accent); }
 .hero .stat span { font: 500 12px var(--mono); color: var(--muted); }
 .hero-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.hero-tags .tag-brand { display: inline-flex; align-items: center; gap: 6px; color: var(--accent); border-color: color-mix(in srgb, var(--accent) 40%, transparent); font-weight: 600; }
 .hero-tags span {
   font: 500 12px var(--mono); padding: 4px 11px; border-radius: 5px;
   background: var(--accent-soft); border: 1px solid var(--line); color: var(--muted);
@@ -663,7 +678,8 @@ details.dieu .content p { margin: 6px 0; }
   .hero .hero-desc { font-size: 14px; }
   .hero .stat { min-width: 0; flex: 1; padding: 8px 10px; }
   .hero .stat b { font-size: 19px; }
-  .hero-tags span { font-size: 10.5px; }
+  .hero-tags .tag-brand { display: inline-flex; align-items: center; gap: 6px; color: var(--accent); border-color: color-mix(in srgb, var(--accent) 40%, transparent); font-weight: 600; }
+.hero-tags span { font-size: 10.5px; }
   .typewriter { font-size: 12.5px; }
 }
 

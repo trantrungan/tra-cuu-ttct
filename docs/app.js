@@ -337,7 +337,7 @@ function renderHome(bangs, tips) {
         <div class="stat"><b>${D.chuongs.length}</b><span>Chương</span></div>
         <div class="stat"><b>${rated}</b><span>mục có tỷ lệ</span></div>
       </div>
-      <div class="hero-tags"><span>Vô song pháp sư Trần Trung An</span><span>TT 22/2019/TT-BYT</span><span>Tra cứu</span><span>Tính tỷ lệ</span></div>
+      <div class="hero-tags"><span class="tag-brand"><svg class="emblem" viewBox="0 0 24 24" aria-hidden="true"><use href="#emblem"/></svg>Aventador Gen</span><span>TT 22/2019/TT-BYT</span><span>Tra cứu</span><span>Tính tỷ lệ</span></div>
     </section>
     <div class="tips"><b>Cách tra cứu</b>
       <ul>
@@ -609,7 +609,7 @@ function renderDoc() {
     <div class="about">
       <div>
         <h3>Về ứng dụng</h3>
-        <p>Thiết kế và biên soạn: <b>Trần Trung An</b> – Vô song pháp sư.</p>
+        <p><b>Aventador Gen</b> – Tra tính % TTCT, một ứng dụng trong dòng Aventador Gen. Thiết kế và biên soạn: Trần Trung An.</p>
         <p class="muted">Nội dung chuyển từ văn bản Thông tư 22/2019/TT-BYT, đã đối chiếu từng mục với bản PDF gốc. Công cụ chỉ hỗ trợ tra cứu, khi kết luận giám định cần đối chiếu văn bản gốc.</p>
       </div>
     </div>

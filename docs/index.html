@@ -25,14 +25,23 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-192.png">
-<link rel="stylesheet" href="style.css?v=aa7e59c2">
+<link rel="stylesheet" href="style.css?v=f59b65f2">
 </head>
 <body>
+<!-- Biểu tượng chung của dòng ứng dụng Aventador: lục giác + chữ Y (gợi đèn pha Aventador).
+     Các ứng dụng trong dòng dùng chung tên Aventador Gen, phân biệt bằng tên chức năng đi kèm. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="emblem" viewBox="0 0 24 24">
+    <path d="M12 2.2 20.5 7.1v9.8L12 21.8 3.5 16.9V7.1z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+    <path d="M12 12.4 7.1 9.1M12 12.4l4.9-3.3M12 12.4v5.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+    <circle cx="12" cy="12.4" r="1.5" fill="currentColor"/>
+  </symbol>
+</svg>
 <header class="topbar">
   <a class="brand" href="#/" aria-label="Trang chủ">
     <span class="logo" aria-hidden="true">%</span>
     <div>
-      <p class="kicker">Vô song pháp sư · Trần Trung An</p>
+      <p class="kicker"><svg class="emblem" viewBox="0 0 24 24" aria-hidden="true"><use href="#emblem"/></svg>Aventador <b>Gen</b></p>
       <h1>Tra tính <span class="neon">% TTCT</span></h1>
       <p class="sub">Thông tư 22/2019/TT-BYT</p>
     </div>
@@ -110,15 +119,18 @@
 
 <footer class="foot">
   <div class="signature">
-    <p class="sig-name">Trần Trung An</p>
-    <p class="sig-title">Vô song pháp sư · thiết kế &amp; biên soạn</p>
+    <svg class="sig-emblem" viewBox="0 0 24 24" aria-hidden="true"><use href="#emblem"/></svg>
+    <div>
+      <p class="sig-name">Aventador <span>Gen</span></p>
+      <p class="sig-title">Tra tính % TTCT · dòng ứng dụng Aventador</p>
+    </div>
   </div>
   <p>Công cụ hỗ trợ tra cứu, không thay thế văn bản gốc. Khi kết luận giám định, đối chiếu Thông tư 22/2019/TT-BYT (hiệu lực từ 01/11/2019).</p>
 </footer>
 
 <div id="toast" role="status" aria-live="polite" hidden></div>
 
-<script src="app.js?v=aa7e59c2" defer></script>
+<script src="app.js?v=f59b65f2" defer></script>
 <!-- Thống kê lượt truy cập (GoatCounter): không cookie, không gửi từ khóa tra cứu (phần sau dấu #) -->
 <script data-goatcounter="https://tracuuttct.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
