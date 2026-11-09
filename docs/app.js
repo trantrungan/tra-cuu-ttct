@@ -141,6 +141,7 @@ function readHash() {
   const p = new URLSearchParams(qs || '');
   if (path.startsWith('/cong-lui')) return { view: 'calc' };
   if (path.startsWith('/van-ban')) return { view: 'doc' };
+  if (path.startsWith('/lien-he')) return { view: 'contact' };
   const m = path.match(/^\/muc\/(\d+)/);
   if (m) return { view: 'search', focus: +m[1] };
   const mc = path.match(/^\/chuong\/(\d+)-(\d+)/);
@@ -620,7 +621,7 @@ function renderDoc() {
 let currentView = 'search';
 function show(view) {
   currentView = view;
-  for (const v of ['search', 'calc', 'doc']) $('#view-' + v).hidden = v !== view;
+  for (const v of ['search', 'calc', 'doc', 'contact']) $('#view-' + v).hidden = v !== view;
   document.querySelectorAll('.tabs a').forEach(a => a.classList.toggle('active', a.dataset.tab === view));
 }
 // ghi nhận lượt dùng từng chức năng (chỉ tên chức năng, không có nội dung tra cứu)
@@ -634,11 +635,13 @@ function route() {
   const r = readHash();
   if (r.view === 'calc') track('cong-lui', 'Mở Tổng tỷ lệ');
   else if (r.view === 'doc') track('van-ban', 'Mở Văn bản');
+  else if (r.view === 'contact') track('lien-he', 'Mở Liên hệ');
   else if (r.b && (r.c || r.b === '3' || r.b === '4') && !r.q) track(`chuong-${r.b}-${r.c || 0}`, `Xem Bảng ${r.b}${r.c ? ' Chương ' + r.c : ''}`);
   if (r.view !== currentView) window.scrollTo({ top: 0 });
   show(r.view);
   if (r.view === 'calc') { renderCalc(); return; }
   if (r.view === 'doc') { renderDoc(); return; }
+  if (r.view === 'contact') return;
   if (r.focus) { focusItem(r.focus); return; }
   Object.assign(S, { q: r.q, b: r.b, c: r.c, min: r.min || '', max: r.max || '', r: !!r.r, limit: 60 });
   syncControls();
@@ -763,9 +766,33 @@ function initTheme() {
   $('#themeBtn').addEventListener('click', () => applyTheme(d.dataset.mode === 'dark' ? 'light' : 'dark', true));
 }
 
+function initContact() {
+  const b = $('#copyMail');
+  if (b) b.addEventListener('click', () => copy('trantrungan13@gmail.com'));
+}
+
+/* Tổng lượt truy cập, lấy thẳng từ GoatCounter nên luôn khớp với bảng số liệu.
+   Không có mạng hoặc bị trình chặn quảng cáo chặn thì giấu luôn dòng này,
+   thà không hiện còn hơn hiện một con số sai hoặc một dấu gạch treo mãi. */
+async function initVisits() {
+  const box = $('#visits'), num = $('#visitsNum');
+  if (!box || !num) return;
+  try {
+    const res = await fetch('https://tracuuttct.goatcounter.com/counter/TOTAL.json');
+    if (!res.ok) return;
+    const data = await res.json();
+    const n = parseInt(String(data.count ?? '').replace(/\D/g, ''), 10);
+    if (!Number.isFinite(n) || n <= 0) return;
+    num.textContent = n.toLocaleString('vi-VN');
+    box.hidden = false;
+  } catch { /* bỏ qua, không hiện gì */ }
+}
+
 /* ================= khởi động ================= */
 (async function init() {
   initTheme();
+  initContact();
+  initVisits();
   saveCalc();
   bind();
   try {
